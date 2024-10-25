@@ -35,7 +35,7 @@ const initializeBooksTable = () => {
       }
 
       if (results.length > 0) {
-        console.log('Record already exists, not inserting.');
+        console.log('initail book already exists.');
       } else {
         // insert
         const insertSql = `
@@ -48,7 +48,7 @@ const initializeBooksTable = () => {
             return;
           }
 
-          console.log('Data inserted successfully:', result);
+          console.log('initial book inserted successfully:', result);
         });
       }
     });
