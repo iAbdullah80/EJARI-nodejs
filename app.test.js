@@ -5,7 +5,9 @@ const db = require('./db.js');
 // Mock the database
 jest.mock('./db.js');
 
-// Clear all mocks before each test
+const validCredentials = Buffer.from('ejari:ejari123').toString('base64');
+const invalidCredentials = Buffer.from('user:123').toString('base64');
+
 beforeEach(() => {
     jest.clearAllMocks();
 });
@@ -29,6 +31,7 @@ describe('Books API', () => {
         // Make request
         const response = await request(app)
             .post('/api/books')
+            .set('Authorization', `Basic ${validCredentials}`)
             .send(newBook);
 
         // Check response
@@ -104,6 +107,7 @@ describe('Books API', () => {
         // Make request
         const response = await request(app)
             .put('/api/books/1')
+            .set('Authorization', `Basic ${validCredentials}`)
             .send({
                 title: 'Updated Title',
                 numberOfPages: 200
@@ -123,10 +127,27 @@ describe('Books API', () => {
 
         // Make request
         const response = await request(app)
-            .delete('/api/books/1');
+            .delete('/api/books/1')
+            .set('Authorization', `Basic ${validCredentials}`);
 
         // Check response
         expect(response.status).toBe(200);
         expect(response.body).toEqual({ message: 'Book successfully deleted' });
+    });
+
+    // Test unauthorized access
+    test('should return 401 if not authorized', async () => {
+        db.query.mockImplementation((sql, params, callback) => {
+            callback(null, { affectedRows: 1 });
+        });
+
+        // Make request
+        const response = await request(app)
+            .delete('/api/books/1')
+            .set('Authorization', `Basic ${invalidCredentials}`);
+        
+        // Check response
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({ message: 'Access denied' });
     });
 });
