@@ -2,13 +2,14 @@ const express = require('express')
 const app = express()
 const port = 3000
 const db = require('./db.js');
+const basicAuth = require('./middleware/auth.js');
 app.use(express.json());
 
 
 // Requirements
 // 1- add a book
 // POST /api/books
-app.post('/api/books', (req, res) => {
+app.post('/api/books', basicAuth, (req, res) => {
     /*
     this is the post request to add a new book to the database
     the request body should contain the following fields:
@@ -73,7 +74,7 @@ app.get('/api/books/:id', (req, res) => {
 
 // 4- update a book
 // PUT /api/books/{id}
-app.put('/api/books/:id', (req, res) => {
+app.put('/api/books/:id', basicAuth, (req, res) => {
     /*
     this is the put request to update a specific book in the database
     the request parameter should be the id of the book
@@ -105,7 +106,7 @@ app.put('/api/books/:id', (req, res) => {
 
 // 5- Delete a Book
 // DELETE /api/books/{id}
-app.delete('/api/books/:id', (req, res) => {
+app.delete('/api/books/:id', basicAuth, (req, res) => {
     /*
     this is the delete request to delete a specific book from the database
     the request parameter should be the id of the book
