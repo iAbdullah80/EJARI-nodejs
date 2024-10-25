@@ -1,0 +1,6 @@
+.gitignore
+.github*
+node_modules
+dockerfile
+compose.yml
+.dockerignore
