@@ -15,5 +15,6 @@
             node-version: 12.x
         - name: npm install, build, and test
           run: |
+            docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=EJARI -d mysql
             npm install
             npm test
