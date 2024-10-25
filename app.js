@@ -83,7 +83,7 @@ app.put('/api/books/:id', (req, res) => {
 
     the response will be the updated json object of the book stored in mysql
     */
-    //const id = parseInt(req.params.id, 10);
+    const id = parseInt(req.params.id, 10);
     const {title, numberOfPages} = req.body;
     const updatedBook = {title, numberOfPages};
     db.query('UPDATE books SET ? WHERE id = ?', [updatedBook, id], (err, results) => {
