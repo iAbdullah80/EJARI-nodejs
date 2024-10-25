@@ -9,10 +9,10 @@
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v2
-        - name: Use Node.js 12.x
+        - name: Use Node.js 20.11.0
           uses: actions/setup-node@v1
           with:
-            node-version: 12.x
+            node-version: 20.11.0
         - name: npm install, build, and test
           run: |
             docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=EJARI -d mysql
