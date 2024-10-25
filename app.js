@@ -59,7 +59,7 @@ app.get('/api/books/:id', (req, res) => {
 
     the response will be the json object of the book stored in mysql
     */
-    const id  = req.params;
+    const id = parseInt(req.params.id, 10);
     db.query('SELECT * FROM books WHERE id = ?', [id], (err, results) => {
         if (err) {
             console.error('Error getting book: ', err);
@@ -83,7 +83,7 @@ app.put('/api/books/:id', (req, res) => {
 
     the response will be the updated json object of the book stored in mysql
     */
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
     const {title, numberOfPages} = req.body;
     const updatedBook = {title, numberOfPages};
     db.query('UPDATE books SET ? WHERE id = ?', [updatedBook, id], (err, results) => {
@@ -112,7 +112,7 @@ app.delete('/api/books/:id', (req, res) => {
 
     the response will be a message indicating that the book has been successfully deleted
     */
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
     db.query('DELETE FROM books WHERE id = ?', [id], (err, results) => {
         if (err) {
             console.error('Error deleting book: ', err);
@@ -123,7 +123,4 @@ app.delete('/api/books/:id', (req, res) => {
     });
 });
 
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+module.exports = app;
