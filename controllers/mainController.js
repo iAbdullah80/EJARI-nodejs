@@ -1,4 +1,5 @@
 const db = require('../db.js');
+
 // Requirements
 // 1- add a book
 // POST /api/books
@@ -24,7 +25,6 @@ function create(req, res) {
         res.json({id: results.insertId});
     });
 }
-
 
 // 2- retrieve all books
 // GET /api/books
@@ -64,7 +64,6 @@ function get_specific_book(req, res){
     });
 };
 
-
 // 4- update a book
 // PUT /api/books/{id}
 function update_specific_book(req, res){
@@ -73,13 +72,19 @@ function update_specific_book(req, res){
     the request parameter should be the id of the book
     the request body should contain the following fields:
     - title (string)
+    - publishedDate (string) [optional]
     - numberOfPages (int)
 
     the response will be the updated json object of the book stored in mysql
     */
     const id = parseInt(req.params.id, 10);
-    const {title, numberOfPages} = req.body;
+    const {title, publishedDate, numberOfPages} = req.body;
     const updatedBook = {title, numberOfPages};
+
+    if (publishedDate) {
+        updatedBook.publishedDate = publishedDate;
+    }
+
     db.query('UPDATE books SET ? WHERE id = ?', [updatedBook, id], (err, results) => {
         if (err) {
             console.error('Error updating book: ', err);
@@ -116,7 +121,6 @@ function delete_specific_book(req, res){
         res.json({ message: 'Book successfully deleted' });
     });
 };
-
 
 module.exports = {
     create,
