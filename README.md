@@ -1,7 +1,5 @@
 # EJARI Coding Challenge
 
-# Books API
-
 A a RESTful API for managing a collection of books, built with Node.js, Express, and MySQL.
 
 ## Prerequisites
@@ -129,9 +127,3 @@ This implementation uses basic authentication because of the bonus task. For pro
 - Using HTTPS
 - Implementing JWT authentication
 - Storing credentials securely
-
-And so on...
-
-
-## Contact
-Abdullah Abdulrahman Alahiadeb - abdullah.alahiadeb@gmail.com
