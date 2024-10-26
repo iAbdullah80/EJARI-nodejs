@@ -1,11 +1,18 @@
 const mysql = require('mysql2');
 
+
+const host = process.env.DB_HOST || 'localhost';
+const port = process.env.DB_PORT || 3306;
+const user = process.env.DB_USER || 'user';
+const password = process.env.DB_PASSWORD || 'user123';
+const database = process.env.DB_DATABASE || 'db123';
+
 const connection = mysql.createConnection({
-  host: 'db',
-  user: 'root',
-  database: 'EJARI',
-  port: 3306,
-  password: 'root',
+  host: host,
+  user: user,
+  database: database,
+  port: port,
+  password: password,
 });
 
 // this is a func to initialize the table and insert the dummy data given in the assessment
